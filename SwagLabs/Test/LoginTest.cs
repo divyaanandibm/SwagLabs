@@ -19,15 +19,16 @@ namespace SwagLabAutomation.Tests
         {
             LoginPage loginPage = new LoginPage();
             loginPage.driver = this.driver;
+            loginPage.CheckTitle();
             loginPage.credintials("standard_user", "secret_sauce");
             loginPage.LoginFunctionality();
-            CheckTitle();
+            loginPage.Propass();
+            loginPage.addtocart();
+            loginPage.cartcheck();
+            
         }
-        [Test]
-        public void CheckTitle()
-        {
-            Assert.Equals(driver.Title, Is.EqualTo("Swag Labs"), "Page title does not match after login.");
-        }
+       
+        
     }
 }
 

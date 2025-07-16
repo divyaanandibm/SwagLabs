@@ -16,8 +16,9 @@ namespace SwagLabAutomation.Tests
         public void Setup()
         {
             driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+            driver.Manage().Window.Maximize();
+            
         }
 
         [OneTimeTearDown]
