@@ -17,10 +17,10 @@ namespace SwagLabAutomation.Tests
         {
             driver = new ChromeDriver();
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Manage().Window.Maximize();
-            
         }
-
+        
         [OneTimeTearDown]
         public void Cleanup()
         {
