@@ -73,6 +73,9 @@ namespace SwagLabAutomation.Tests
 
             loginPage.HightoLow();
             Thread.Sleep(1000);
+
+            loginPage.Access();
+            Thread.Sleep(1000);
             
            
 

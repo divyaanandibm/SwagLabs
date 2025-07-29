@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.Script;
+using OpenQA.Selenium.DevTools.V136.Overlay;
 using SwagLabAutomation.Tests;
 using System;
 using System.Collections.Generic;
@@ -256,6 +257,23 @@ namespace SwagLabAutomation.Pages
             actualprice.Reverse();
 
             return actualprice.SequenceEqual(expectedprice);
+        }
+
+        public void Access()
+        {
+            string filepath = @"C:\Users\Vision\Downloads\c#\code\at\expectedfile.txt";
+            try
+            {
+                string lines = File.ReadAllText(filepath);
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Error reading file:");
+            }  
         }
     }
 
