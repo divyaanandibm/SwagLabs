@@ -9,6 +9,7 @@ using NUnit.Framework.Constraints;
 using SwagLabAutomation.Pages;
 using SwagLabAutomation.Tests;
 using NUnit.Framework.Internal;
+using AventStack.ExtentReports.Model;
 
 namespace SwagLabAutomation.Tests
 {
@@ -18,6 +19,7 @@ namespace SwagLabAutomation.Tests
         [Test]
         public void TestLoginWithCredentials()
         {
+            
             LoginPage loginPage = new LoginPage();
             loginPage.driver = this.driver;
             loginPage.CheckTitle();
@@ -72,6 +74,9 @@ namespace SwagLabAutomation.Tests
             Thread.Sleep(1000);
 
             loginPage.HightoLow();
+            Thread.Sleep(1000);
+
+            loginPage.Access();
             Thread.Sleep(1000);
             
            

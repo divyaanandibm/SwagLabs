@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.Script;
+using OpenQA.Selenium.DevTools.V136.Overlay;
 using SwagLabAutomation.Tests;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports.Model;
+using NUnit.Framework.Interfaces;
 
 namespace SwagLabAutomation.Pages
 {
@@ -22,7 +27,7 @@ namespace SwagLabAutomation.Pages
             Assert.That(txt1, Is.EqualTo("Swag Labs"), "Title does not match");
             return txt1;
         }
-
+        
         //Credintials
         public void credintials(string username, string password)
         {
@@ -257,10 +262,78 @@ namespace SwagLabAutomation.Pages
 
             return actualprice.SequenceEqual(expectedprice);
         }
+
+        public void Access()
+        {
+            string filepath = @"C:\Users\Vision\Downloads\c#\code\at\expectedfile.txt";
+            try
+            {
+
+                string[] lines = File.ReadAllLines(filepath);
+                string liness = File.ReadAllText(filepath);
+
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Error reading file:");
+            }  
+        }
+
+
+        // Report access 
+
+        ExtentReports reports;
+        ExtentTest testlog;
+
+        [OneTimeSetUp]
+
+        public void Reportaccess()
+        {
+            var htmlreport = new ExtentSparkReporter("C:\\Users\\Vision\\Downloads\\c#\\code\\at\\expectedfile.txt");
+            reports = new ExtentReports();
+            reports.AttachReporter(htmlreport);
+        }
+
+        public void ValidLoginTest()
+        {
+
+            testlog = reports.CreateTest("Starting login test").Info("Test started");
+
+            var loginPage = new LoginPage();
+            testlog.Log(Status.Info, ("driver initiated"));
+
+            loginPage.credintials("standard_user", "secret_sauce");
+            testlog.Log(Status.Info, ("Login Performed"));
+
+            string txt = driver.FindElement(By.XPath("//span[@class='title']")).Text;
+            Console.WriteLine(txt);
+            Assert.That(txt, Is.EqualTo("Products"), "Title does not match");
+            testlog.Log(Status.Info, ("Title compared"));
+
+        }
+        [TearDown]
+        public void teardown()
+        {
+            testlog.Log(Status.Info, ("extend report completed"));
+        }
+
+        [OneTimeTearDown]
+
+        public void OTTD()
+        {
+            reports.Flush();
+        }
+
+
+
     }
 
 
-            
+
 }
 
     
